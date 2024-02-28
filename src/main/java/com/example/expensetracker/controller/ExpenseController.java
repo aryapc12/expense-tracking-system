@@ -35,6 +35,7 @@ public class ExpenseController {
     @PutMapping("/{id}")
     public Expense updateExpense(@PathVariable Long id, @Valid @RequestBody Expense expenseDetails) {
         Expense expense = expenseService.findById(id);
+        expense.setName(expenseDetails.getName());
         expense.setAmount(expenseDetails.getAmount());
         expense.setDate(expenseDetails.getDate());
         return expenseService.save(expense);

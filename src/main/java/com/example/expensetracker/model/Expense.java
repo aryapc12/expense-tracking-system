@@ -19,6 +19,10 @@ public class Expense {
     @PastOrPresent(message = "Date cannot be in the future")
     @Temporal(TemporalType.DATE)
     private Date date;
+	
+	@NotNull(message = "Expense name cannot be null")
+    @Size(min = 2, message = "Expense name must be at least 2 characters long")
+    private String name;
 
     // Default constructor
     public Expense() {
@@ -53,5 +57,13 @@ public class Expense {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
