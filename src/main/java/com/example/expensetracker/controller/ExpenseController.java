@@ -2,6 +2,9 @@ package com.example.expensetracker.controller;
 
 import com.example.expensetracker.model.Expense;
 import com.example.expensetracker.service.ExpenseService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +28,12 @@ public class ExpenseController {
     }
 
     @PostMapping
-    public Expense createExpense(@RequestBody Expense expense) {
+    public Expense createExpense(@Valid @RequestBody Expense expense) {
         return expenseService.save(expense);
     }
 
     @PutMapping("/{id}")
-    public Expense updateExpense(@PathVariable Long id, @RequestBody Expense expenseDetails) {
+    public Expense updateExpense(@PathVariable Long id, @Valid @RequestBody Expense expenseDetails) {
         Expense expense = expenseService.findById(id);
         expense.setAmount(expenseDetails.getAmount());
         expense.setDate(expenseDetails.getDate());

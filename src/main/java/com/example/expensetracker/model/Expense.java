@@ -1,6 +1,7 @@
 package com.example.expensetracker.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.util.Date;
 
 @Entity
@@ -10,8 +11,12 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+	@NotNull(message="Amount cannot be null")
+	@DecimalMin(value = "0.01", message = "Amount must be greater than 0")
     private Double amount;
 
+	@NotNull(message = "Date cannot be null")
+    @PastOrPresent(message = "Date cannot be in the future")
     @Temporal(TemporalType.DATE)
     private Date date;
 
