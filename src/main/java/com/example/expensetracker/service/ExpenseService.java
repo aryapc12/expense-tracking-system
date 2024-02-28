@@ -9,4 +9,5 @@ public interface ExpenseService {
     Expense findById(Long id);
     Expense save(Expense expense);
     void deleteById(Long id);
+    List<Expense> findByAmount(Double amount); // Method to find expenses by amount
 }

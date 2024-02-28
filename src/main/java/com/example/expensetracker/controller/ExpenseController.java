@@ -26,6 +26,13 @@ public class ExpenseController {
     public Expense getExpenseById(@PathVariable Long id) {
         return expenseService.findById(id);
     }
+    
+    // New endpoint to get expenses by amount
+    @GetMapping("/by-amount")
+    public List<Expense> getExpensesByAmount(@RequestParam Double amount) {
+        return expenseService.findByAmount(amount);
+    }
+    // /expenses/by-amount?amount=100.5
 
     @PostMapping
     public Expense createExpense(@Valid @RequestBody Expense expense) {

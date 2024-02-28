@@ -31,4 +31,9 @@ public class ExpenseServiceImpl implements ExpenseService {
     public void deleteById(Long id) {
         expenseRepository.deleteById(id);
     }
+    
+    @Override
+    public List<Expense> findByAmount(Double amount) {
+        return expenseRepository.findByAmount(amount); // Implementation to find expenses by amount
+    }
 }
