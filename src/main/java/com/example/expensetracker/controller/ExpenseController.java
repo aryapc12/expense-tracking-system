@@ -1,5 +1,6 @@
 package com.example.expensetracker.controller;
 
+import com.example.expensetracker.dto.ExpenseUpdateDTO;
 import com.example.expensetracker.model.Expense;
 import com.example.expensetracker.service.ExpenseService;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/expenses")
@@ -46,6 +48,28 @@ public class ExpenseController {
         expense.setAmount(expenseDetails.getAmount());
         expense.setDate(expenseDetails.getDate());
         return expenseService.save(expense);
+    }
+    
+    @PatchMapping("/{id}")
+    public ResponseEntity<Expense> updateExpensePartial(@PathVariable Long id, @RequestBody ExpenseUpdateDTO expenseUpdateDTO) {
+        Expense expense = expenseService.findById(id);
+
+        if (expense == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (expenseUpdateDTO.getAmount() != null) {
+            expense.setAmount(expenseUpdateDTO.getAmount());
+        }
+        if (expenseUpdateDTO.getDate() != null) {
+            expense.setDate(expenseUpdateDTO.getDate());
+        }
+        if (expenseUpdateDTO.getName() != null && !expenseUpdateDTO.getName().isEmpty()) {
+            expense.setName(expenseUpdateDTO.getName());
+        }
+        
+        Expense updatedExpense = expenseService.save(expense);
+        return ResponseEntity.ok(updatedExpense);
     }
 
     @DeleteMapping("/{id}")
