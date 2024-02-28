@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.util.Date;
 
+import com.example.expensetracker.validation.CaseInsensitiveUniqueName;
+
 @Entity
 public class Expense {
 
@@ -22,6 +24,7 @@ public class Expense {
 	
 	@NotNull(message = "Expense name cannot be null")
     @Size(min = 2, message = "Expense name must be at least 2 characters long")
+	@CaseInsensitiveUniqueName
     private String name;
 
     // Default constructor
